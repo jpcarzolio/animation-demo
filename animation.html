@@ -1,0 +1,276 @@
+<html>
+  <head>
+    <title>Animation demo</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+
+html { font-family:arial; font-size:16px;}
+
+#stager {
+  background:black;
+  overflow: hidden;
+  position: relative;
+  width:100%;
+  height:100%;
+  z-index:-10;
+}
+
+#transformer {
+  border-radius: 20px;
+  background-color: #222;
+  border:1px solid #444;
+  position:absolute;
+  top:75px;
+  height: 80%;
+  width: 70%;
+  margin: 0px 15%;
+  animation: spinin 1s ease-out both 4s, suck 1.5s ease-in-out forwards 13s; 
+  text-align: center;
+  color: hsl(0, 100%, 100%);
+  font-size: 32px;
+  overflow:hidden;
+  z-index:-1;
+}
+
+@keyframes spinin {
+  from {
+    transform: rotate(-360deg) scale(0.1);
+    opacity:0;
+  }
+
+  80% {
+    transform: rotate(15deg) scale(1.08);
+    opacity:1;
+  }
+  85% {
+    transform: rotate(-8deg) scale(0.95);
+    opacity:1;
+  }
+  90% {
+    transform: rotate(4deg) scale(1.02);
+    opacity:1;
+  }
+  95% {
+    transform: rotate(-2deg) scale(1);
+    opacity:1;
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity:1;
+  }
+}
+
+@keyframes suck {
+  
+  0% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+
+  40% {
+    transform:
+      matrix3d(
+      0.9289602612955906,     0,      0,      -0.00013609145345672293,
+      0.4558107885708499,     1.52351002012887544,    0,      0.001537833424060969,
+      0,      0,      1,      0,
+      0,      0,      0,      1) 
+      translateY(100px)
+  }
+
+  65% { opacity:1 }
+  95% { opacity:0 }
+  
+  
+  to {
+    opacity:0;
+    transform:
+      matrix3d(
+      0.7848457786631861,     0,      0,      -0.0004121728378099883,
+      3.792822840765491,      7.166438946499006,      0,      0.014148271989341018,
+      0,      0,      1,      0,
+      0,      0,      0,      1) 
+      translateY(1900px)
+      ;
+    }
+}
+
+
+@keyframes settle {
+  to {
+    opacity:1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes warpout {
+  from {
+    transform: scale(1);
+    opacity:1;
+  }
+
+  50% { opacity:0.1}
+
+  to {
+    opacity:0;
+    transform: scaleX(10);
+  }
+}
+
+@keyframes up {
+  from { transform: scale(1); letter-spacing:0}
+  20% { transform: rotate(15deg); letter-spacing:0.25em; }
+  60% { transform: scale(1); letter-spacing:-0.3em; top:-75px }
+  70% { letter-spacing:0.2em}
+  80% { letter-spacing:-0.1em }
+  90% { letter-spacing:0.05em }
+  to { transform: scale(1); letter-spacing:0; top:-75px }
+}
+
+@keyframes hide {
+  to { visibility: hidden}
+}
+
+@keyframes show {
+  to { visibility: visible; }
+}
+
+@keyframes txtshadow {
+  from { text-shadow: 0px 0px 0px rgba(0,0,0,0);}
+  to { text-shadow: 1px 1px 5px black;}
+}
+
+@keyframes blink {
+  0% { opacity:1}
+  45% { opacity:1}
+  50% { opacity:0}
+  95% { opacity: 0}
+  100% { opacity:1}
+}
+
+div.txt {
+  font-size:40px;
+  color:white;
+  position:relative;
+  margin:20px auto;
+  width:90%;
+  text-align:center;
+  top:200px;
+}
+
+div#txt1 {
+  animation: settle 2s ease-in both, warpout 1.5s ease-out forwards 3s;
+  transform: scale(10) translate(-90px, -8px);
+  color:#ffd0a0;
+  opacity:0.2;
+}
+
+div#txt2 {
+  animation: settle 2.1s ease-in both, warpout 1.5s ease-out forwards 3.1s;
+  transform: scale(12) translate(90px, -2px);
+  color:#a0d0ff;
+  opacity:0.4;
+}
+
+div#txt3 {
+  animation: settle 2.2s ease-in both, up 1s ease-out forwards 3.1s, hide 0.01s forwards 5s; 
+  transform: scale(10) translate(-90px, 9px);
+  opacity:0.3;
+}
+
+
+.titlebar {
+  color:#eee;
+  background:#d52;
+  width:100%;
+  height:50px;
+  font-size:40px;
+  box-shadow:0 3px 10px black, 2px 2px 10px rgba(0,0,0,0.5) inset;
+}
+
+.titlebar span {
+  animation: show 0.01s forwards 4.999s, txtshadow 0.5s forwards 5.3s;
+  visibility:hidden;
+}
+
+.console { 
+  color: #00ff00;
+  font-family:monospace;
+  font-size: 40px;
+  text-align:left;
+  margin: 10px 20px;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  position:relative;
+  left:-10px;
+}
+
+</style>
+
+</head>
+
+<body>
+  <div id="stager">
+    <div class='txt' id='txt1'>This is a short</div>
+    <div class='txt' id='txt2'>responsive CSS3</div>
+    <div class='txt' id='txt3'>Animation demo</div>
+
+    <div id="transformer">
+      <div class='titlebar'><span>Animation demo</span></div>
+      <p class='console'>
+      &gt; <span class='typewriter console'></span><span class='cursor'>|</span>
+      </p>
+    </div>
+    
+
+
+  </div>
+
+  <script type='text/javascript'>
+
+var letters;
+function typewriter(msg, interval, delay) {
+  var ttInt;
+  var len = 0;
+  letters = [];
+  setTimeout(function() {
+  var ttInt = setInterval(function() {
+      var l = $('<span class="letter">' + msg.substr(len++, 1) + '</span>');
+      letters.push(l);
+      $('.typewriter').append(l);
+
+    }, interval);
+  }, delay);
+}
+
+
+typewriter('Hello world!', 150, 6000);
+
+setTimeout(function() { $('.cursor').hide();}, 8000);
+setTimeout(function() { 
+  $('.typewriter').html('');
+  $('.cursor').show();
+}, 11000);
+
+typewriter('Bye!', 150, 12000);
+
+
+setTimeout(function() {
+    $(letters).each(function(i, l) {
+      l.css({
+        transition: '1.5s ease-in all ' + ((letters.length - i) * 0.1) + 's',
+        position: 'relative',
+        transform: 'translateX(1500px) rotate(1440deg)',
+        opacity: '0'
+      });
+    });
+}, 8000);
+
+
+
+
+  </script>
+
+</body>
+</html>
